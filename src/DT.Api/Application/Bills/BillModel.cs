@@ -9,5 +9,6 @@ namespace DT.Api.Application.Bills
         public decimal AdjustedValue { get; set; }
         public int NumberOfDaysLate  { get; set; }
         public DateTime PayDay { get;  set; }
+        public int Value { get; set; }
     }
 }

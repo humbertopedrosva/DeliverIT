@@ -40,6 +40,22 @@ namespace DT.Api.Authorizations
 
         }
 
+        public async Task<IdentityResult> CreateUser(UserModel userModel)
+        {
+            var user = new IdentityUser
+            {
+                UserName = userModel.Email,
+                Email = userModel.Email,
+                EmailConfirmed = true
+            };
+
+           var result =  await _userManager.CreateAsync(user, userModel.Password);
+
+            if (result.Succeeded)
+                await _userManager.AddToRoleAsync(user, "User");
+
+            return result;
+        }
         public async Task CreateDefaultUserAdminMaster(string email, string password)
         {
             var userExists = await _userManager.UserExists<IdentityUser>(email);
@@ -137,5 +153,7 @@ namespace DT.Api.Authorizations
 
             return result.Succeeded;
         }
+
+       
     }
 }

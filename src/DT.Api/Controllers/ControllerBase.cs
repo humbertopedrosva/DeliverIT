@@ -6,7 +6,6 @@ using System.Linq;
 namespace DT.Api.Controllers
 {
     [ApiController]
-
     public class ControllerBase : Controller
     {
         protected ICollection<string> Erros = new List<string>();

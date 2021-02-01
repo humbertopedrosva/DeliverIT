@@ -45,5 +45,28 @@ namespace DT.Api.Controllers
             AddError("Usuário ou Senha incorretos");
             return CustomResponse();
         }
+
+        [HttpPost]
+        [ActionName("new-account")]
+        public async Task<ActionResult> Register(UserModel userModel)
+        {
+            var validator = new UserModelValidator();
+
+            var validatorResult = validator.Validate(userModel);
+
+            if (!validatorResult.IsValid)
+                return CustomResponseErrorValidation(validatorResult.Errors);
+
+            var result = await _authUser.CreateUser(userModel);
+
+            if (result.Succeeded)
+                return CustomResponse(await _authUser.GenerateJwt(userModel.Email));
+            
+
+            foreach (var error in result.Errors)
+                AddError(error.Description);
+            
+            return CustomResponse();
+        }
     }
 }

@@ -12,6 +12,8 @@ namespace DT.Infra.Context
         private readonly string _connString = "Server=localhost;Port=5432;Username=postgres;Password=changeme;Database=DeliverIt";
         private static readonly ILoggerFactory _logger = LoggerFactory.Create(x => x.AddConsole());
 
+        public DbSet<Bill> Bill { get; set; }
+        public DbSet<Interest> Interest { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
