@@ -45,6 +45,8 @@ namespace DT.Api.Configuration
 
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseIdentityConfiguration();
 
             app.UseEndpoints(endpoints =>
